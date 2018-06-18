@@ -9,7 +9,7 @@
 .   \######  | ######  |#######  |########\          \#  /   ######\ .# | \##\ ######\ ## | \## |\######  |   .
 .    \______/  \______/ \_______/ \________|          \_/    \______|\__|  \__|\______|\__|  \__| \______/    .
 .                                                                                                             .
-.   Episode: 1 - Call, Apply & Bind                                                                           .
+.   Episode: Javascript => Call, Apply & Bind                                                                           .
 .   Twitter: @GissiSim                                                                                        .
 .   Github: https://github.com/gissisim                                                                       .
 .                                                                                                             .
@@ -21,8 +21,8 @@ var human = {
   life: 100
 }
 
-var oger = {
-  name: 'Oger McOgerson',
+var ogre = {
+  name: 'Ogre McOgreson',
   life: 150
 }
 
@@ -35,13 +35,13 @@ function characterHit(hpTaken, additionalCritHp) {
 var hitpoints = 10
 var criticalHP = 5
 console.log(characterHit.call(human, hitpoints, criticalHP)) // 85
-console.log(characterHit.apply(oger, [hitpoints, criticalHP])) // 135
+console.log(characterHit.apply(ogre, [hitpoints, criticalHP])) // 135
 
 const personHit = characterHit.bind(human)
-const ogerHit = characterHit.bind(oger)
+const ogreHit = characterHit.bind(ogre)
 
 console.log(personHit(hitpoints, criticalHP)) // 85
-console.log(ogerHit(hitpoints, criticalHP)) //135
+console.log(ogreHit(hitpoints, criticalHP)) //135
 
 // Further example, and how to get rid of bind with ES6
 
