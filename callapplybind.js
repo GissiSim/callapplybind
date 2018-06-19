@@ -1,17 +1,17 @@
 /*.............................................................................................................
 .                                                                                                             .
-.    ######\   ######\  #######\  ########\       ##\    ##\ ######\ ##\   ##\ ######\ ##\   ##\  ######\     .
-.   ##  __##\ ##  __##\ ##  __##\ ##  _____|      ## |   ## |\_##  _|## | ##  |\_##  _|###\  ## |##  __##\    .
-.   ## /  \__|## /  ## |## |  ## |## |            ## |   ## |  ## |  ## |##  /   ## |  ####\ ## |## /  \__|   .
-.   ## |      ## |  ## |## |  ## |#####\          \##\  ##  |  ## |  #####  /    ## |  ## ##\## |## |####\    .
-.   ## |      ## |  ## |## |  ## |##  __|          \##\##  /   ## |  ##  ##<     ## |  ## \#### |## |\_## |   .
-.   ## |  ##\ ## |  ## |## |  ## |## |              \###  /    ## |  ## |\##\    ## |  ## |\### |## |  ## |   .
-.   \######  | ######  |#######  |########\          \#  /   ######\ .# | \##\ ######\ ## | \## |\######  |   .
-.    \______/  \______/ \_______/ \________|          \_/    \______|\__|  \__|\______|\__|  \__| \______/    .
+.     ###\         ##\     ##\       ##\               ######\   ######\  #######\  ########\       ###\      .
+.    ##  _|        ## |    ## |      \__|             ##  __##\ ##  __##\ ##  __##\ ##  _____|      \_##\     .
+.    ## |        ######\   #######\  ##\  #######\    ## /  \__|## /  ## |## |  ## |## |              ## |    .
+.   ### |        \_##  _|  ##  __##\ ## |##  _____|   ## |      ## |  ## |## |  ## |#####\            ###\    .
+.   \## |          ## |    ## |  ## |## |\######\     ## |      ## |  ## |## |  ## |##  __|           ##  |   .
+.    ## |          ## |##\ ## |  ## |## | \____##\    ## |  ##\ ## |  ## |## |  ## |## |              ## /    .
+.    \###\         \####  |## |  ## |## |#######  |##\\######  | ######  |#######  |########\       ###  |    .
+.     \___|         \____/ \__|  \__|\__|\_______/ \__|\______/  \______/ \_______/ \________|      \___/     .
 .                                                                                                             .
-.   Episode: Javascript => Call, Apply & Bind                                                                           .
+.   Episode: Javascript => Call, Apply & Bind                                                                 .          .
 .   Twitter: @GissiSim                                                                                        .
-.   Github: https://github.com/gissisim                                                                       .
+.   Github: https://github.com/GissiSim                                                                       .
 .                                                                                                             .
 .............................................................................................................*/
 
@@ -34,14 +34,14 @@ function characterHit(hpTaken, additionalCritHp) {
 // RESULTS
 var hitpoints = 10
 var criticalHP = 5
-console.log(characterHit.call(human, hitpoints, criticalHP)) // 85
-console.log(characterHit.apply(ogre, [hitpoints, criticalHP])) // 135
+console.log(characterHit.call(human, hitpoints, criticalHP))
+console.log(characterHit.apply(ogre, [hitpoints, criticalHP]))
 
 const personHit = characterHit.bind(human)
 const ogreHit = characterHit.bind(ogre)
 
-console.log(personHit(hitpoints, criticalHP)) // 85
-console.log(ogreHit(hitpoints, criticalHP)) //135
+console.log(personHit(hitpoints, criticalHP))
+console.log(ogreHit(hitpoints, criticalHP))
 
 // Further example, and how to get rid of bind with ES6
 
@@ -49,20 +49,20 @@ let insertText = {
   asyncInsert(callBack) {
     callBack()
   },
-  insert(INSERTME) {
-    console.log(`Text that was inserted is: ${INSERTME}`)
+  insert(textToInsert) {
+    console.log(`Text that was inserted is: ${textToInsert}`)
   },
   // BEFORE ES2015
-  render1(INSERTTHIS) {
+  render1(insertThis) {
     this.asyncInsert(
       function() {
-        this.insert(INSERTTHIS)
+        this.insert(insertThis)
       }.bind(this)
     )
   },
   // WITH ES2015
-  render2(INSERTTHIS) {
-    this.asyncInsert(() => this.insert(INSERTTHIS))
+  render2(insertThis) {
+    this.asyncInsert(() => this.insert(insertThis))
   }
 }
 
