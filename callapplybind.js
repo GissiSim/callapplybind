@@ -9,13 +9,32 @@
 .    \###\         \####  |## |  ## |## |#######  |##\\######  | ######  |#######  |########\       ###  |    .
 .     \___|         \____/ \__|  \__|\__|\_______/ \__|\______/  \______/ \_______/ \________|      \___/     .
 .                                                                                                             .
-.   Episode: Javascript => Call, Apply & Bind                                                                 .          .
+.   Episode: This explained with call, apply & bind                                                           .
 .   Twitter: @GissiSim                                                                                        .
-.   Github: https://github.com/GissiSim                                                                       .
+.   Github: https://github.com/GissiSim/callapplybind                                                         .
 .                                                                                                             .
 .............................................................................................................*/
 
-// OBJECTS
+// FIRST... THIS.
+console.log(this) // In nodejs, this = empty object. On the web it's the Window Object
+console.log(this === exports) // Why does this = exports in Node?
+const exploreThis = (function() {
+  console.log(this === exports) // Why is this no longer = exports inside a function?
+  console.log(this) // In nodejs this becomes the global nodejs object inside a function. Why?
+})()
+
+const newThisContext = {
+  life: 100,
+  getLife: function() {
+    console.log(this)
+    return this.life
+  }
+}
+console.log(newThisContext.getLife())
+
+// NOW... CALL, APPLY & BIND
+
+// objects
 var human = {
   name: 'Gissur Simonarson',
   life: 100
@@ -26,24 +45,28 @@ var ogre = {
   life: 150
 }
 
-// FUNCTIONS
-function characterHit(hpTaken, additionalCritHp) {
-  return this.life - hpTaken - additionalCritHp
+// functions
+function characterHit(hitpoints, critpoints) {
+  console.log(this)
+  return this.life - hitpoints - critpoints
 }
 
-// RESULTS
-var hitpoints = 10
-var criticalHP = 5
-console.log(characterHit.call(human, hitpoints, criticalHP))
-console.log(characterHit.apply(ogre, [hitpoints, criticalHP]))
+// results
+var hp = 10 // hitpoints
+var cp = 5 // critpoints
 
+// call & apply
+console.log(characterHit.call(human, hp, cp))
+console.log(characterHit.apply(ogre, [hp, cp]))
+
+// bind
 const personHit = characterHit.bind(human)
 const ogreHit = characterHit.bind(ogre)
 
-console.log(personHit(hitpoints, criticalHP))
-console.log(ogreHit(hitpoints, criticalHP))
+console.log(personHit(hp, cp))
+console.log(ogreHit(hp, cp))
 
-// Further example, and how to get rid of bind with ES6
+// CALLBACKS
 
 let insertText = {
   asyncInsert(callBack) {
@@ -60,11 +83,30 @@ let insertText = {
       }.bind(this)
     )
   },
-  // WITH ES2015
+  // AFTER ES2015
   render2(insertThis) {
-    this.asyncInsert(() => this.insert(insertThis))
+    this.asyncInsert(() => this.insert(insertThis)) // Arrow functions in callbacks allow this context to flow into that function
   }
 }
 
 insertText.render1('Render 1')
 insertText.render2('Render 2')
+
+// FINALLY, (NODEJS) THIS...
+console.log(this === exports)
+console.log(this)
+
+var module = { exports: {} }
+var context = function(exports, require, module, __filename, __dirname) {
+  console.log(this) // This is my code
+  console.log(exports)
+}
+
+context.apply(module.exports, [module.exports, require, module, __filename, __dirname]) // This is how NodeJS calls modules
+console.log(exports)
+console.log(module)
+console.log(module.exports)
+console.log(this)
+console.log(require)
+console.log(__filename)
+console.log(__dirname)
