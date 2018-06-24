@@ -13,4 +13,4 @@ Explaining the difference and power behind call, apply and bind.
 
 # Video
 
-Still in the works
+[![this.CODE Episode 1](https://img.youtube.com/vi/rmsHtcz2GBg/0.jpg)](https://www.youtube.com/watch?v=rmsHtcz2GBg)
