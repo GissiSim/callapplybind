@@ -9,13 +9,14 @@
 .    \###\         \####  |## |  ## |## |#######  |##\\######  | ######  |#######  |########\       ###  |    .
 .     \___|         \____/ \__|  \__|\__|\_______/ \__|\______/  \______/ \_______/ \________|      \___/     .
 .                                                                                                             .
-.   Episode: This explained with call, apply & bind                                                           .
-.   Twitter: @GissiSim                                                                                        .
+.   Episode: Understanding this with call, apply & bind                                                       .
+.   Twitter: @GissiSim / @thisdotCODE                                                                         .
 .   Github: https://github.com/GissiSim/callapplybind                                                         .
 .                                                                                                             .
 .............................................................................................................*/
 
 // FIRST... THIS.
+
 console.log(this) // In nodejs, this = empty object. On the web it's the Window Object
 console.log(this === exports) // Why does this = exports in Node?
 const exploreThis = (function() {
@@ -23,14 +24,14 @@ const exploreThis = (function() {
   console.log(this) // In nodejs this becomes the global nodejs object inside a function. Why?
 })()
 
-const newThisContext = {
+const thisContext = {
   life: 100,
   getLife: function() {
-    console.log(this)
+    this //?
     return this.life
   }
 }
-console.log(newThisContext.getLife())
+thisContext.getLife() //?
 
 // NOW... CALL, APPLY & BIND
 
@@ -56,15 +57,17 @@ var hp = 10 // hitpoints
 var cp = 5 // critpoints
 
 // call & apply
-console.log(characterHit.call(human, hp, cp))
-console.log(characterHit.apply(ogre, [hp, cp]))
+
+//RUN FUNCTION FIRST WITHOUT CALL. REMEMBER TO TAKE OFF () BEFORE CALL
+characterHit.call(human, hp, cp) //?
+characterHit.apply(ogre, [hp, cp]) //?
 
 // bind
 const personHit = characterHit.bind(human)
 const ogreHit = characterHit.bind(ogre)
 
-console.log(personHit(hp, cp))
-console.log(ogreHit(hp, cp))
+personHit(hp, cp) //?
+ogreHit(hp, cp) //?
 
 // CALLBACKS
 
@@ -73,7 +76,7 @@ let insertText = {
     callBack()
   },
   insert(textToInsert) {
-    console.log(`Text that was inserted is: ${textToInsert}`)
+    return `Text that was inserted is: ${textToInsert}` //?
   },
   // BEFORE ES2015
   render1(insertThis) {
